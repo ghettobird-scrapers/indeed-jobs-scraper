@@ -1,10 +1,14 @@
-#Based on:
-#https://github.com/UmaisZahid/Indeed-Job-Scraper/blob/master/scrape.py
+# Based on:
+# https://github.com/UmaisZahid/Indeed-Job-Scraper/blob/master/scrape.py
 
 from ghettobird import fly
+from selenium import webdriver
+
+chromedriver_location = 'c:/chromedriver.exe'
+browser = webdriver.Chrome(executable_path=chromedriver_location)
 
 bird = {
- "url": "https://www.indeed.com/l-St.-Louis,-MO-jobs.html",
+    "url": "https://www.indeed.com/l-St.-Louis,-MO-jobs.html",
     "flightpath": {
         "jobs": [{
             "@iterate": "//div[@data-tn-component='organicJob']",
@@ -16,9 +20,10 @@ bird = {
             "salary": ".//span[@class='salaryText']",
             "date_posted": ".//span[@class='date ']"
         }]
+    }, "options": {
+        "browser": browser
     }
 }
 
 scraped = fly(bird)
 print(scraped['results'])
-
